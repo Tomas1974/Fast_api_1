@@ -11,41 +11,37 @@ async def add_todo(todo: Todo) -> dict:
     todo_list.append(todo)
     return {"message": "Todo added successfully"}
 
+
+
 @todo_router.get("/todo", response_model=TodoItems)
 async def retrieve_todos() -> TodoItems:
-    return TodoItems(todos=todo_list)  
-
+    # Make sure each item in todo_list is an instance of TodoItem
+    return TodoItems(todos=[TodoItem(**todo.dict()) for todo in todo_list])
 
 
 @todo_router.get("/todo/{todo_id}")
-
 async def get_single_todo(todo_id: int = Path(..., title="The ID of the todo to retrieve.")) -> dict:
-    # ... betyder det er nødvendigt. Eller var det et valg. Validere at det der kommer fra todo_id er et tal.
-    #   Title er til dokumentation. Der kan også bruges description"""
-    
     for todo in todo_list:
-        if todo in todo_list:
-            if todo.id == todo_id:
-                return{"todo": todo}
+        if todo.id == todo_id:
+            return {"todo": todo}
     raise HTTPException(
         status_code=status.HTTP_404_NOT_FOUND, detail="Todo with supplied ID doesn't exist"
     )
+
     
-
-
 @todo_router.put("/todo/{todo_id}")
-async def update_todo(todo_data: TodoItem, todo_id: int = Path(..., title="The ID of the todo to be updaed") )  -> dict:
+async def update_todo(todo_data: TodoItem, todo_id: int = Path(..., title="The ID of the todo to be updated")) -> dict:
     for todo in todo_list:
         if todo.id == todo_id:
             todo.item = todo_data.item
-            return { "message": "Todo updated successsfully."}
-            
-        return {
-            "message": "Todo with supplied ID doesn't exist."
-            }
+            return {"message": "Todo updated successfully."}
+    
     raise HTTPException(
         status_code=status.HTTP_404_NOT_FOUND, detail="Todo with supplied ID doesn't exist"
     )
+
+
+
 
 @todo_router.delete("/todo/{todo_id}")
 async def delete_single_todo(todo_id: int) -> dict:

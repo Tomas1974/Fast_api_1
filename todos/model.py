@@ -19,9 +19,6 @@ class Todo(BaseModel):
                 }
             }
         }
-        orm_mode = True
-        extra = 'forbid'  # Do not allow extra fields that are not defined
-        allow_population_by_field_name = True
 
 # Explanation of Config options:
 # schema_extra: Provides an example of how the Todo model can be structured. This is helpful for documentation purposes, making it clear what kind of data the model expects.
