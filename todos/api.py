@@ -2,10 +2,12 @@ from fastapi import FastAPI
 from todo import todo_router
 
 app = FastAPI()
-
-
-@todo_router.get("/hello")
-async def say_hello() -> dict:
-    return { "message": "Hello"}
-
 app.include_router(todo_router)
+
+
+
+if __name__ == '__main__':
+    import uvicorn
+    uvicorn.run(app, host='127.0.0.1', port=8000)
+
+

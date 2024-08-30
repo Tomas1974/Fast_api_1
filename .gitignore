@@ -1,0 +1,13 @@
+.env
+*.env
+
+# Cache
+__pycache__
+.mypy_cache
+.pytest_cache
+
+# Virtualenv and editor config
+.idea
+.myvenv/
+logs/
+logs
