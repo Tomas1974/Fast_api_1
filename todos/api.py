@@ -1,7 +1,13 @@
 from fastapi import FastAPI
 from todo import todo_router
 
-app = FastAPI()
+app = FastAPI(
+    title= "This is for the Todo things",
+    description="Something else",
+    version="1.0"
+    )
+
+
 app.include_router(todo_router)
 
 
