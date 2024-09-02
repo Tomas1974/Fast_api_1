@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from typing import List
 
 class Todo(BaseModel):
-        }
+
 
     id: int = Path(ge=1)
     item: str
